@@ -112,8 +112,8 @@ export default class AppleMusic {
       throw new Error('Unable to extract core script from Apple Music');
     let script = await got(`https://music.apple.com/${scriptUri}`).text();
     let developerToken;
-    if (!(developerToken = script.match(/eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IldlYlBsYXlLaWQifQ[^"]+/)?.[0]))
-      throw new Error('Unable to extract developerToken from Apple Music core script');
+    if (!(developerToken = script.match(/eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IldlYlBsYXlLaWQifQ[^"]+/)?.[0]))
+      throw new Error(script);
     this.#store.expiry = this.expiresAt(developerToken);
     this.#store.core.configuration.developerToken = developerToken;
     this.#store.axiosInstance.defaults.headers['Authorization'] = `Bearer ${developerToken}`;
